@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Details</title>
+    <!-- Link CSS Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Link Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles for animations */
+        .fadeIn {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="food-details-container" class="container mx-auto mt-16 p-4 bg-white shadow-lg rounded-lg max-w-lg fadeIn">
+        <h2 id="food-name" class="text-2xl font-bold mb-4">Food Name</h2>
+        <img id="food-image" src="" alt="" width="500" class="mb-4 rounded-lg">
+        <p id="food-origin" class="mb-2">Asal : </p>
+        <p id="food-description" class="mb-2">Penjelasan : </p>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedFood = JSON.parse(localStorage.getItem('selectedFood'));
+
+            if (selectedFood) {
+                document.getElementById('food-name').textContent = selectedFood.name;
+                document.getElementById('food-image').src = selectedFood.image;
+                document.getElementById('food-image').alt = selectedFood.name;
+                document.getElementById('food-origin').textContent += selectedFood.origin;
+
+                document.getElementById('food-description').textContent += selectedFood.description;
+            } else {
+                document.getElementById('food-details-container').textContent = 'No food details available.';
+            }
+        });
+    </script>
+</body>
+</html>
