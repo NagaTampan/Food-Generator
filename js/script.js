@@ -566,37 +566,5 @@ function goToDetails() {
     window.location.href = 'penjelasan.html';
 }
 
-function shareOnSocialMedia() {
-    const selectedFood = JSON.parse(localStorage.getItem('selectedFood'));
 
-    if (selectedFood) {
-        const shareText = `Check out this delicious ${selectedFood.name}! It's a popular dish from ${selectedFood.origin}.`;
-        const shareUrl = document.location.href; // You might want to replace this with the URL of your website
 
-        if (navigator.share) {
-            navigator.share({
-                title: 'Random Food Recommendation',
-                text: shareText,
-                url: shareUrl
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            }).catch(console.error);
-        } else {
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
-
-            const shareOptions = `
-                <div>
-                    <a href="${twitterUrl}" target="_blank">Share on Twitter</a><br>
-                    <a href="${facebookUrl}" target="_blank">Share on Facebook</a><br>
-                    <a href="${whatsappUrl}" target="_blank">Share on WhatsApp</a>
-                </div>
-            `;
-
-            document.getElementById('share-options').innerHTML = shareOptions;
-        }
-    } else {
-        alert('No food selected to share.');
-    }
-}
