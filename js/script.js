@@ -565,6 +565,10 @@ function displayHealthyRandomFood(food) {
 function goToDetails() {
     window.location.href = 'penjelasan.html';
 }
+// Menggunakan event listener untuk menangkap kejadian klik kanan
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // Mencegah default action dari klik kanan
+});
 
 
 
