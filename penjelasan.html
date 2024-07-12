@@ -3,53 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Details</title>
-    <!-- Link CSS Tailwind CSS -->
+    <title>Healthy Food Recommendation</title>
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Link Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        /* Custom styles for animations */
-        .fadeIn {
-            animation: fadeIn 1s ease-out;
-        }
+    <!-- Flowbite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite/css/flowbite.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-L0X+2f93J6TuCZPSFfykKAmw4JrB9nQA9FQl0sy3k9dDDRD0cZ3fuZGMI0Xehi/3bQOwN3S03HwAW5Fp6EKsmQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Flaticon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flaticon/css/flaticon.css">
+
+    <style>
+        img {
+            width: 500px;
+            height: 300px;
+            object-fit: cover; /* This ensures the image is properly contained within the fixed dimensions */
+        }.back{
+            float: right;
         }
     </style>
 </head>
 <body class="bg-gray-100">
-    <div id="food-details-container" class="container mx-auto mt-16 p-4 bg-white shadow-lg rounded-lg max-w-lg fadeIn">
-        <h2 id="food-name" class="text-2xl font-bold mb-4">Food Name</h2>
-        <img id="food-image" src="" alt="" width="500" class="mb-4 rounded-lg">
-        <p id="food-origin" class="mb-2">Asal : </p>
-        <p id="food-description" class="mb-2">Penjelasan : </p>
+    <div id="questionnaire" class="container mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg max-w-lg animate__animated animate__fadeIn">
+        <h2 class="text-2xl font-bold mb-4">Answer the questions to get a healthy food recommendation</h2>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Type of Food:</label>
+            <select id="healthy-food-type" class="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+                <option value="ALL">ALL</option>
+                <option value="main">Makanan Pembuka</option>
+                <option value="snack">Makanan Penutup</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Category:</label>
+            <select id="healthy-food-category" class="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+                <option value="ALL">ALL</option>
+                <option value="rice">Nasi</option>
+                <option value="noodles">Mie</option>
+                <option value="bread">Roti</option>
+                <option value="fruit">Buah</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Taste:</label>
+            <select id="healthy-food-taste" class="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500">
+                <option value="ALL">ALL</option>
+                <option value="spicy">Pedas</option>
+                <option value="salty">Asin</option>
+                <option value="sweet">Manis</option>
+            </select>
+        </div>
+        <button onclick="generateHealthyFoodRecommendation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 w-full">Get Healthy Recommendation</button>
+    </div>
+
+    <div id="random-healthy-food-container" class="container mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg max-w-lg" style="display: none;">
+        <div class="">
+            
+            <h2 class="text-2xl text-center font-bold mb-0">Healthy Food :</h2>
+        </div>
+        <p id="random-healthy-food-name" class="text-xl text-center mb-2 font-bold"></p>
+        <img id="random-healthy-food-image" src="" alt="" width="200" class="mb-4 rounded-lg cursor-pointer animate__animated animate__bounceIn" onclick="goToDetails()">
+        <p id="random-healthy-food-origin" class="mb-4 text-center font-bold text-xl"></p>
+        <button onclick="generateHealthyFoodRecommendation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline transition duration-300">
+            Get Healthy Recommendation
+        </button>
+        
+        <button onclick="goBack()" class="bg-green-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline transition duration-300 ml-auto">
+            <i class="fas fa-arrow-left"></i>
+       Back </button>
+        
+
     </div>
 
     <!-- JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const selectedFood = JSON.parse(localStorage.getItem('selectedFood'));
-
-            if (selectedFood) {
-                document.getElementById('food-name').textContent = selectedFood.name;
-                document.getElementById('food-image').src = selectedFood.image;
-                document.getElementById('food-image').alt = selectedFood.name;
-                document.getElementById('food-origin').textContent += selectedFood.origin;
-
-                document.getElementById('food-description').textContent += selectedFood.description;
-            } else {
-                document.getElementById('food-details-container').textContent = 'No food details available.';
-            }
-        });
+        function goBack() {
+            window.location.href = 'sehat.html';
+        }
     </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
+ 
