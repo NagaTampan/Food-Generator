@@ -19,10 +19,11 @@
 
     <style>
         img {
-            width: 100%;
-            height: auto;
-            max-width: 500px;
+            width: 500px;
+            height: 300px;
             object-fit: cover; /* This ensures the image is properly contained within the fixed dimensions */
+        } .back{
+            float: right;
         }
     </style>
 </head>
@@ -67,8 +68,8 @@
         <img id="random-healthy-food-image" src="" alt="" class="mb-4 rounded-lg cursor-pointer animate__animated animate__bounceIn" onclick="goToDetails()">
         <p id="random-healthy-food-origin" class="mb-4 text-center font-bold text-xl"></p>
         <div class="flex justify-between">
-            <button onclick="generateHealthyFoodRecommendation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline transition duration-300">Get Healthy Recommendation</button>
-            <button onclick="goBack()" class="bg-green-500 hover:bg-gray-600 text-white font-bold py-2 px-7 rounded focus:outline-none focus:shadow-outline transition duration-300">
+            <button onclick="generateHealthyFoodRecommendation()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-16 rounded focus:outline-none focus:shadow-outline transition duration-300">Get Healthys Recommendation</button>
+            <button onclick="goBack()" class="bg-green-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline transition duration-300">
                 <i class="fas fa-arrow-left"></i> Back
             </button>
         </div>
